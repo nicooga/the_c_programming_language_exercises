@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+main() {
+  compile $@ && run
+}
+
+compile() {
+  chapter=$1
+  exercise=$2
+  file_path="exercises/chapter$chapter/exercise$exercise.c"
+  gcc $file_path
+}
+
+run() {
+  ./a.out
+}
+
+main $@;
