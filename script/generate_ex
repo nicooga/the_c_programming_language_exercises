@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+main() {
+  chapter=$1
+  exercise=$2
+  shift
+  shift
+  shift
+
+  exercise_file=./exercises/chapter$chapter/exercise$exercise.c
+
+  check_existance $exercise_file
+  generate_exercise_scaffold $exercise_file $chapter $exercise
+  $EDITOR $exercise_file
+}
+
+check_existance() {
+  if [[ -f $1 ]]; then
+    while true; do
+      read -p "Exercise file $exercise_file already exists. Overwrite? (y/N)" yn
+      case $yn in
+        [Yy]* ) rm -rf $1; break;;
+        [Nn]* ) exit;;
+        * ) echo "Invalid input: $yn";;
+      esac
+    done
+  fi
+}
+
+generate_exercise_scaffold() {
+  file=$1
+  chapter=$2
+  exercise=$3
+
+  echo $file
+
+  touch $file
+
+  tee -a $file << EOF
+int main(void)
+{
+    
+}
+EOF
+}
+
+main $@
