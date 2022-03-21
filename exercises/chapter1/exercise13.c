@@ -8,10 +8,7 @@ int main(void)
 {
     int word_count_by_length[MAX_WORD_LENGTH+1];
     int c;
-    int d = 0;
     int cur_word_length = 0;
-
-    word_count_by_length[MAX_WORD_LENGTH] = 23;
 
     for (int i = 1; i <= MAX_WORD_LENGTH; i++)
         word_count_by_length[i] = 0;
@@ -28,9 +25,8 @@ int main(void)
                 ++word_count_by_length[cur_word_length];
                 cur_word_length = 0;
             }
-        } else {
+        } else
             ++cur_word_length;
-        }
     }
 
     for (int word_length = 1; word_length <= MAX_WORD_LENGTH; word_length++) {
