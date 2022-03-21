@@ -30,4 +30,6 @@ int main(void)
         for (int j = 0; j < character_counts[i] / 2.0; j++) printf("-");
         printf("\n");
     }
+
+    return 0;
 }
