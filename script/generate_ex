@@ -37,6 +37,8 @@ generate_exercise_scaffold() {
   touch $file
 
   tee -a $file << EOF
+#include <stdio.h>
+
 int main(void)
 {
     
