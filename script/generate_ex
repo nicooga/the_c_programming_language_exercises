@@ -41,7 +41,7 @@ generate_exercise_scaffold() {
 
 int main(void)
 {
-    
+    return 0;
 }
 EOF
 }
