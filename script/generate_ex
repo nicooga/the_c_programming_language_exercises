@@ -29,14 +29,12 @@ check_existance() {
 
 generate_exercise_scaffold() {
   file=$1
-  chapter=$2
-  exercise=$3
 
   echo $file
 
-  touch $file
+  mkdir -p $(dirname $file)
 
-  tee -a $file << EOF
+  tee $file << EOF
 #include <stdio.h>
 
 int main(void)
