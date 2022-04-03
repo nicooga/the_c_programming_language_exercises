@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#define MAX_LENGTH 12
+#define MAX_LENGTH 1000
 
 int consume_next_line(char line[], int max_length); // Avoid name collision with already defined `get_line` function
 void copy(char from[], char to[], int lim);
@@ -34,6 +34,8 @@ int consume_next_line(char s[], int max_length)
         if (i < max_length) s[i] = c;
         if (c == '\n') break;
     }
+
+    s[i] = '\0';
 
     return i;
 }

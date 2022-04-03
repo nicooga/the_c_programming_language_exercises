@@ -14,15 +14,6 @@ int is_quote(char c);
 char opening_char_for(char c);
 void print_error_message(char stack_head, char actual);
 
-void print_stack() {
-    int head = stack[2];
-
-    printf("stack: ");
-
-    for (int i = head; i >= 3; i--)
-        printf("%c ", stack[i]);
-}
-
 // Exercise 1-24. Write a program to check a C program for rudimentary syntax errors like
 // unmatched parentheses, brackets and braces. Don't forget about quotes, both single and
 // double, escape sequences, and comments. (This program is hard if you do it in full
@@ -76,7 +67,7 @@ int main(void)
             }
 
             case EOF: {
-                if (stack[1] == 0) break;
+                if (stack[1] == 0) return 0;
                 print_error_message(pop(stack), EOF);
                 return 1;
                 break;
@@ -104,8 +95,6 @@ void push(int stack[], char item)
 
     if (size == max_size) return;
 
-    printf("Pushing char '%c'\n", item);
-
     ++stack[1];
     ++stack[2];
 
@@ -128,8 +117,6 @@ int pop(int stack[])
     if (size == 0) return '\0';
 
     int item = stack[head];
-    
-    printf("Popping char '%c'\n", item);
 
     --stack[1];
     --stack[2];
