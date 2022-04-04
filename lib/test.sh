@@ -1,0 +1,1 @@
+bash "$(current_directory $0)/stack/test.sh"
