@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-. $PROJECT_ROOT/vendor/assert.sh || exit 1
+source $PROJECT_ROOT/vendor/assert.sh || exit 1
 
 tab="$(printf '\t')"
 
@@ -202,4 +202,4 @@ int main() {
 EOF
 )"
 
-assert_end examples
+assert_end "Chapter 1"
