@@ -8,8 +8,11 @@ int lower(int c);
 // with a conditional expression instead of if-else. 
 int main(void)
 {
-    char c = getchar();
-    printf("%c\n", lower(c));
+    char c;
+
+    while ((c = getchar()) != EOF)
+        printf("%c", lower(c));
+
     return 0;
 }
 

@@ -6,7 +6,6 @@ short is_digit(char c);
 short to_digit(char c);
 unsigned setbits(unsigned x, short p, short n, unsigned y);
 
-void print_as_binary(unsigned n, char label[]);
 short bit_count_for_uints(void);
 
 // Exercise 2-6. Write a function setbits(x,p,n,y) that returns x with the n bits that begin at 

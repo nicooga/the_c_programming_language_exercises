@@ -26,19 +26,19 @@ int main(void)
 
     printf("Limits as in standard headers:\n\n");
 
-    printf("char\t-> %d to %d\n", CHAR_MIN, CHAR_MAX);
-    printf("short\t-> %d to %d\n", SHRT_MIN, SHRT_MAX);
-    printf("int\t-> %d to %d\n", INT_MIN, INT_MAX);
-    printf("long\t-> %ld to %ld\n", LONG_MIN, LONG_MAX);
+    printf("char  -> %d to %d\n", CHAR_MIN, CHAR_MAX);
+    printf("short -> %d to %d\n", SHRT_MIN, SHRT_MAX);
+    printf("int   -> %d to %d\n", INT_MIN, INT_MAX);
+    printf("long  -> %ld to %ld\n", LONG_MIN, LONG_MAX);
 
     putchar('\n');
 
     printf("Computed limits:\n\n");
 
-    printf("char\t-> %d to %d\n", char_min, char_max);
-    printf("short\t-> %d to %d\n", short_min, short_max);
-    printf("int\t-> %d to %d\n", int_min, int_max);
-    printf("long\t-> %ld to %ld\n", long_min, long_max);
+    printf("char  -> %d to %d\n", char_min, char_max);
+    printf("short -> %d to %d\n", short_min, short_max);
+    printf("int   -> %d to %d\n", int_min, int_max);
+    printf("long  -> %ld to %ld\n", long_min, long_max);
 
     return 0;
 }

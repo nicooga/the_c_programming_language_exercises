@@ -15,6 +15,8 @@ int main(void)
         s[i++] = c;
     }
 
+    s[i] = '\0';
+
     printf("s: %s\n", s);
 
     return 0;
