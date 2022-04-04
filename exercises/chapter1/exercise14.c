@@ -8,6 +8,7 @@ int main(void)
 {
     int c;
     int character_counts[MAX_ASCII_CODE+1];
+    int min_char_found = -1;
     int max_char_found = 0;
 
     for (int i = 0; i <= MAX_ASCII_CODE; i++)
@@ -23,9 +24,12 @@ int main(void)
 
         if (c > max_char_found)
             max_char_found = c;
+
+        if (min_char_found == -1 || c < min_char_found)
+            min_char_found = c;
     }
 
-    for (int i = 0; i <= max_char_found; i++) {
+    for (int i = min_char_found; i <= max_char_found; i++) {
         printf("%c: ", i);
         for (int j = 0; j < character_counts[i] / 2.0; j++) printf("-");
         printf("\n");

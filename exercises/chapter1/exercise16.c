@@ -10,7 +10,7 @@ void copy(char from[], char to[], int lim);
 int main()
 {
     int length;
-    int max_length;
+    int max_length = 0;
     char line[MAX_LENGTH];
     char longest_line[MAX_LENGTH];
 
@@ -31,7 +31,7 @@ int consume_next_line(char s[], int max_length)
     int i, c;
 
     for (i = 0; (c = getchar()) != EOF; ++i) {
-        if (i < max_length) s[i] = c;
+        if (i < max_length-1) s[i] = c;
         if (c == '\n') break;
     }
 

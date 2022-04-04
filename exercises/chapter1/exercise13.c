@@ -9,27 +9,31 @@ int main(void)
     int word_count_by_length[MAX_WORD_LENGTH+1];
     int c;
     int cur_word_length = 0;
+    int max_word_length = 0;
 
     for (int i = 1; i <= MAX_WORD_LENGTH; i++)
         word_count_by_length[i] = 0;
 
     while ((c = getchar()) != EOF) {
         if (c == ' ' || c == '\n' || c == '\t') {
-            if (cur_word_length > MAX_WORD_LENGTH)
+            if (cur_word_length > MAX_WORD_LENGTH) {
                 printf(
-                    "Word length `%d` exceedes max word length `%d`",
+                    "Word length `%d` exceedes max processable word length `%d`\n",
                     cur_word_length,
                     MAX_WORD_LENGTH
                 );
-            else {
+
+                return 1;
+            } else {
                 ++word_count_by_length[cur_word_length];
+                if (cur_word_length > max_word_length) max_word_length = cur_word_length;
                 cur_word_length = 0;
             }
         } else
             ++cur_word_length;
     }
 
-    for (int word_length = 1; word_length <= MAX_WORD_LENGTH; word_length++) {
+    for (int word_length = 1; word_length <= max_word_length; word_length++) {
         int word_count = word_count_by_length[word_length];
 
         printf("%3d: ", word_length);
@@ -39,4 +43,6 @@ int main(void)
 
         printf("\n");
     }
+
+    return 0;
 }

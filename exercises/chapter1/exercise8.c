@@ -5,9 +5,10 @@ int main(void)
 {
     int c, nl;
 
-    while ((c = getchar()) != EOF)
+    while ((c = getchar()) != EOF) {
         if (c == '\n' || c == '\t' || c == ' ')
             ++nl;
+    }
 
     printf("%d", nl);
 }
