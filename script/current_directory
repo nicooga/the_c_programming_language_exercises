@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Obtain current directory from within a bash file.
+# Usage: from within a bash file, `current_directory $0`.
+echo "$(dirname $(realpath $1))"

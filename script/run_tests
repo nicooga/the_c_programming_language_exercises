@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+bash "$PROJECT_ROOT/exercises/test.sh"
+bash "$PROJECT_ROOT/lib/test.sh"
