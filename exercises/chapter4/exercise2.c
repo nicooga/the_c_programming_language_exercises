@@ -1,17 +1,28 @@
 #include <stdio.h>
 #include <ctype.h>
 
+#define MAX_LENGTH 100
+
 double atof(char s[]);
 int my_atoi(char s[], int i);
+void read_float(char s[], int lim);
 
 // Exercise 4-2. Extend atof to handle scientific notation of the form `123.45e-6`
 // where a floating-point number may be followed by e or E and an optionally signed exponent. 
 int main(void)
 {
-    if (atof("123.0") != 123) return 1;
-    if (atof("3.2e6") != 3200000) return 1;
-    if (atof("3.2e-3") != 0.0032) return 1;
+    char s[MAX_LENGTH];
+    read_float(s, MAX_LENGTH);
+    printf("%f\n", atof(s));
     return 0;
+}
+
+void read_float(char s[], int lim)
+{
+    int i = 0;
+    char c;
+    while ((c = getchar()) != EOF &&c != '\n') s[i++] = c;
+    s[i] = '\0';
 }
 
 /* atof: convert string s to double */
