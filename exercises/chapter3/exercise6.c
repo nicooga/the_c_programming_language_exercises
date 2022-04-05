@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-void my_itoa(int n , char s[], int p);
+void my_itoa(int n , char s[], int w);
 void reverse(char s[]);
 int length(char s[]);
 int abs(int i);
@@ -11,20 +11,17 @@ int abs(int i);
 int main(void)
 {
     char s[64];
-    int n = 366;
-    short p = 10;
-
-    my_itoa(n, s, p);
-
-    printf("n: %d\n", n);
-    printf("p: %d\n", p);
-    printf("my_itoa(n, s, p): %s\n", s);
-
+    int n;
+    int w;
+    scanf("%d", &n);
+    scanf("%d", &w);
+    my_itoa(n, s, w);
+    printf("%s\n", s);
     return 0;
 }
 
 /* itoa: convert n to characters in s */
-void my_itoa(int n, char s[], int p)
+void my_itoa(int n, char s[], int w)
 {
     int i = 0;
     short sign = n < 0 ? -1 : 1;
@@ -34,7 +31,7 @@ void my_itoa(int n, char s[], int p)
     } while ((n /= 10) != 0); /* delete it */
 
     if (sign < 0) s[i++] = '-';
-    while (i < p) s[i++] = ' ';
+    while (i < w) s[i++] = ' ';
 
     s[i] = '\0';
 

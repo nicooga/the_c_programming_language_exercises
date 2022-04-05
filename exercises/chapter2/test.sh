@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source $PROJECT_ROOT/vendor/assert.sh || exit 1
+source $PROJECT_ROOT/script/assert.sh
 
 assert "compile_and_run_ex 2 1" "$(cat <<EOF
 Limits as in standard headers:

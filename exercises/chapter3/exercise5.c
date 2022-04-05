@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void itob(int n, char s[], short b);
+void itob(int n, char s[], int b);
 char digit_to_char(short d);
 void reverse(char s[]);
 int length(char s[]);
@@ -12,19 +12,17 @@ int length(char s[]);
 int main(void)
 {
     char s[100];
-    int n = 10000;
-    short b = 16;
-
+    int n;
+    int b;
+    scanf("%d", &n);
+    scanf("%d", &b);
     itob(n, s, b);
-
-    printf("n: %d\n", n);
-    printf("b: %d\n", b);
-    printf("itob(n, s, b): %s\n", s);
-
+    printf("%s\n", s);
     return 0;
 }
 
-void itob(int n, char s[], short b)
+
+void itob(int n, char s[], int b)
 {
    int i = 0;
    short sign = n < 0 ? -1 : 1;

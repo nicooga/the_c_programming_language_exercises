@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source $PROJECT_ROOT/vendor/assert.sh || exit 1
+source $PROJECT_ROOT/script/assert.sh
 
 tab="$(printf '\t')"
 

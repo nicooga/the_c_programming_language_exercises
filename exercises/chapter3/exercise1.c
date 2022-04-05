@@ -1,6 +1,7 @@
 #include <stdio.h>
 
-#define TRIALS 10000000
+#define N 10000
+#define TRIALS 10000
 
 int binsearch(int x, int v[], int n);
 int binsearch_improved(int x, int v[], int n);
@@ -11,15 +12,14 @@ int binsearch_improved(int x, int v[], int n);
 // Result: no noticeable difference
 int main(void)
 {
-    int n = 100;
-    int v[n];
+    int v[N];
 
-    for (int i = 0; i < n; i++) v[i] = i;
+    for (int i = 0; i < N; i++) v[i] = i;
 
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < N; i++)
         for (int j = 0; j < TRIALS; j++)
-            if (binsearch_improved(i, v, n) != i) return 1;
-            // if (binsearch(i, v, n) != i) return 1;
+            // if (binsearch_improved(i, v, N) != i) return 1;
+            if (binsearch(i, v, N) != i) return 1;
 
     return 0;
 }
