@@ -15,4 +15,6 @@ assert "compile_and_run_ex 4 3" "2" "1 2 + 3 * 4 /"
 assert "compile_and_run_ex 4 3" "1" "1 2 + 3 * 4 %"
 assert "compile_and_run_ex 4 3" "-5" "1 2 - 10 * 2 /"
 
+assert_raises "compile_and_run_ex 4 4" 0
+
 assert_end "Chapter 4"
