@@ -7,7 +7,7 @@ compile() {
   chapter=$1
   exercise=$2
   file_path="exercises/chapter$chapter/exercise$exercise.c"
-  gcc $file_path
+  gcc -I $PROJECT_ROOT/lib $file_path
 }
 
 run() {
