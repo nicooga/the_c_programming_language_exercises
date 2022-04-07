@@ -2,7 +2,7 @@
 
 #define MAX_SIZE 100
 
-int stack_push(int item);
+int stack_push(double item);
 double stack_pop(void);
 int stack_size(void);
 void _stack_increment_size();
@@ -11,7 +11,7 @@ void _stack_decrement_size();
 double stack[MAX_SIZE];
 int _stack_size = 0;
 
-int stack_push(int item)
+int stack_push(double item)
 {
     int s = stack_size();
 
@@ -27,7 +27,7 @@ double stack_pop(void)
 {
     int s = stack_size();
     if (s == 0) return -1; // TODO: return null pointer instead (?)
-    int item = stack[s-1];
+    double item = stack[s-1];
     _stack_decrement_size();
     return item;
 }
