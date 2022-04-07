@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
-gcc lib/stack/test.c && ./a.out &&
+gcc "$(current_directory $0 )/test.c" && ./a.out &&
 echo "Stack tests passed"
