@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+gcc $1 -I $PROJECT_ROOT/lib -lm

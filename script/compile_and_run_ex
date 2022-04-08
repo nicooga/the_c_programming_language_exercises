@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 main() {
-  compile $@ && run
+  compile_ex $@ && run
 }
 
-compile() {
+compile_ex() {
   chapter=$1
   exercise=$2
   file_path="exercises/chapter$chapter/exercise$exercise.c"
-  gcc $file_path -I $PROJECT_ROOT/lib -lm
+  compile $file_path
 }
 
 run() {
