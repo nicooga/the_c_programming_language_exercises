@@ -70,4 +70,6 @@ assert_implements_basic_calculator_behavior 6
 assert_implements_intermediate_calculator_behavior 6
 assert_implements_calculator_variables 6
 
+assert_raises "compile_and_run_ex 4 7" 0
+
 assert_end "Chapter 4"
