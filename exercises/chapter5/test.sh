@@ -10,5 +10,6 @@ assert "compile_and_run_ex 5 2" "12.300000\n4.560000\n" " 12.3 - 4.56 "
 
 assert_raises "compile_and_run_ex 5 3" 0
 assert_raises "compile_and_run_ex 5 4" 0
+assert_raises "compile_and_run_ex 5 5" 0
 
 assert_end "Chapter 5"
