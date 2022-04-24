@@ -10,6 +10,7 @@ static int test_read_char(void);
 static int test_unread_char(void);
 static int test_read_line(void);
 static int test_read_word(void);
+static int test_read_int(void);
 static void unread_word(char *s);
 static void debug(char *s);
 
@@ -20,6 +21,7 @@ int main(void)
     if (!test_unread_char()) return 1;
     if (!test_read_line()) return 1;
     if (!test_read_word()) return 1;
+    if (!test_read_int()) return 1;
     return 0;
 }
 
@@ -72,6 +74,18 @@ void unread_word(char *s)
     char *original_s = s;
     while (*(s+1)) s++;
     while (s >= original_s) unread_char(*s--);
+}
+
+int test_read_int(void)
+{
+    unread_word("  15 23   +12 \n   22   0   -12  ");
+    if (read_int() != 15) return 0;
+    if (read_int() != 23) return 0;
+    if (read_int() != 12) return 0;
+    if (read_int() != 22) return 0;
+    if (read_int() != 0) return 0;
+    if (read_int() != -12) return 0;
+    return 1;
 }
 
 void debug(char *s)

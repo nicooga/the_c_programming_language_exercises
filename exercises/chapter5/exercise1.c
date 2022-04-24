@@ -4,7 +4,7 @@
 
 #define SIZE 100
 
-int read_int(int *pn);
+int my_read_int(int *pn);
 char read_first_digit();
 
 // Exercise 5-1. As written, getint treats a + or - not followed by a digit as a valid
@@ -14,7 +14,7 @@ int main(void)
     int i;
     int array[SIZE];
 
-    for (i = 0; i < SIZE && read_int(&array[i]) != EOF; i++);
+    for (i = 0; i < SIZE && my_read_int(&array[i]) != EOF; i++);
 
     for (int j = 0; j < i; j++)
         printf("%d\n", array[j]);
@@ -22,7 +22,7 @@ int main(void)
     return 0;
 }
 
-int read_int(int *pn)
+int my_read_int(int *pn)
 {
     char c = read_first_digit();
 
