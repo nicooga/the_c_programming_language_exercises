@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <ctype.h>
-#include "input/input.c"
+#include "lib/input.h"
 
 #define SIZE 100
 

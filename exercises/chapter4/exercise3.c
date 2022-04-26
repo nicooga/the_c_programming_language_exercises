@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include "stack/stack.c"
-#include "input/input.c"
+#include "lib/stack.h"
+#include "lib/input.h"
 
 #define MAXOP 100 /* max size of operand or operator */
 #define NUMBER '0' /* signal that a number was found */

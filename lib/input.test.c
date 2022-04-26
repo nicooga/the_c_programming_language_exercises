@@ -1,5 +1,5 @@
-#include "./input.c"
-#include "string/string.c"
+#include "lib/string.h"
+#include "./input.h"
 
 #define true 1
 #define false 0

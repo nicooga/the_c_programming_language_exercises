@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <math.h>
-#include "stack/stack.c"
-#include "input/input.c"
+#include "lib/stack.h"
+#include "lib/input.h"
 
 #define MAXOP 100
 #define OPERAND '0'

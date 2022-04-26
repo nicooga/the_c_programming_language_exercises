@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <math.h>
-#include "stack/stack.c"
-#include "input/input.c"
+#include "lib/stack.h"
+#include "lib/input.h"
 
 #define MAX_LINE_LENGTH 100
 #define MAX_PAYLOAD_LENGTH 100

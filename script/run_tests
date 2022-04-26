@@ -1,3 +1,18 @@
 #!/usr/bin/env bash
-bash "$PROJECT_ROOT/exercises/test.sh" &&
-bash "$PROJECT_ROOT/lib/test.sh"
+run_tests() {
+  find_tests | while read in; do run_test $in; done
+}
+
+find_tests() {
+  find $PROJECT_ROOT \
+    | grep -e  "\.test\.sh\$" \
+    | sort
+}
+
+run_test() {
+  cmd="bash $1"
+  echo "=== running $cmd"
+  eval $cmd || exit $?
+}
+
+run_tests

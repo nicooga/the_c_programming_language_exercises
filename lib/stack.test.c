@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include "./stack.c"
+#include "./stack.h"
 
 int main(void)
 {

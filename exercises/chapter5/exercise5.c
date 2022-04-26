@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "string/string.c"
+#include "lib/string.h"
 
 int test_my_strncpy(void);
 int test_my_strncat(void);

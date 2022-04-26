@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <string.h>
+#include "lib/stack.h"
 
 void my_strcat(char *s, char *t);
 

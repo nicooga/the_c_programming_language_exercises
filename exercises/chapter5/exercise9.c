@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include "input/input.c"
-#include "string/string.c"
+#include "lib/input.h"
+#include "lib/string.h"
 
 int invoke_day_of_year(void);
 int invoke_month_day(void);

@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <string.h>
+#include "lib/stack.h"
 
 void reverse(char s[]);
 void _reverse(char s[], int i, int length);

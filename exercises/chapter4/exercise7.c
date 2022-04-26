@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "input/input.c"
+#include "lib/input.h"
 
 void read_string(char s[]);
 void unread_string(char s[]);

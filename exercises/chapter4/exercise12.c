@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "string/string.c"
+#include "lib/stack.h"
+#include "lib/string.h"
 
 void my_itoa(int n, char s[]);
 int _my_itoa(int n, char s[], int i);
