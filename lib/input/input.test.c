@@ -1,5 +1,5 @@
 #include "lib/string.h"
-#include "./input.h"
+#include "lib/input.h"
 
 #define true 1
 #define false 0
