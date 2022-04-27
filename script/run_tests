@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 run_tests() {
+  echo "=== Running tests ..."
   find_tests | while read in; do run_test $in; done
 }
 
@@ -11,8 +12,10 @@ find_tests() {
 
 run_test() {
   cmd="bash $1"
-  echo "=== running $cmd"
+  echo "=== $1"
   eval $cmd || exit $?
+  echo "=== 💯"
+  echo
 }
 
 run_tests
