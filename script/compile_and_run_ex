@@ -1,17 +1,19 @@
 #!/usr/bin/env bash
 main() {
-  compile_ex $@ && run
+  chapter=$1
+  exercise=$2
+  shift
+  shift
+  compile_ex $1 $2 && run $@
 }
 
 compile_ex() {
-  chapter=$1
-  exercise=$2
   file_path="exercises/chapter$chapter/exercise$exercise.c"
   compile $file_path
 }
 
 run() {
-  ./a.out
+  ./a.out $@
 }
 
 main $@;
