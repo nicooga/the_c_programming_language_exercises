@@ -66,4 +66,36 @@ test_day_functions_behavior() {
 test_day_functions_behavior 8
 test_day_functions_behavior 9
 
+assert "compile_and_run_ex 5 13 -n 3" "asdf\nqwer\nuiop\n" "$(cat << EOF
+asdf
+qwer
+uiop
+EOF
+)"
+
+assert "compile_and_run_ex 5 13 -n 1" "uiop\n" "$(cat << EOF
+asdf
+qwer
+uiop
+EOF
+)"
+
+assert "compile_and_run_ex 5 13 -n 0" "" "$(cat << EOF
+asdf
+qwer
+uiop
+EOF
+)"
+
+assert "compile_and_run_ex 5 13 -n -1" "" "$(cat << EOF
+asdf
+qwer
+uiop
+EOF
+)"
+
+assert "compile_and_run_ex 5 13 -n asdf" "" "asdf"
+assert "compile_and_run_ex 5 13 -n" "" "asdf"
+assert "compile_and_run_ex 5 13" "" "asdf"
+
 assert_end "Chapter 5"
