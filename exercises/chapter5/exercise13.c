@@ -7,25 +7,28 @@
 #define MAX_N_LENGTH 10
 #define MAX_LINE_LENGTH 1000
 
-int invoke_parse_args(int argc, char *argv[]);
-int print_usage();
-int read_int_from(char s[]);
-int read_lines(char **lines, int line_count);
-int read_line();
-void print_lines(char **lines, int cursor);
-
 static int line_count = DEFAULT_LINE_COUNT;
+static int range_start;
+static int range_end;
+static char *line; 
+
+static int invoke_parse_args(int argc, char *argv[]);
+static int print_usage();
+static int read_int_from(char s[]);
+static void read_lines(char **lines);
+static void push_range_start();
+static int read_line();
+static void print_lines(char **lines);
+static void print_line(char *line);
 
 // Exercise 5-13. Write the program tail, which prints the last n lines of its input. By default, n
 // is set to 10, let us say, but it can be changed by an optional argument so that
 int main(int argc, char *argv[])
 {
     invoke_parse_args(argc, argv);
-    printf("line_count: %d\n", line_count);
-    printf("\n");
     char *lines[line_count];
-    int cursor = read_lines(lines, line_count);
-    print_lines(lines, cursor);
+    read_lines(lines);
+    print_lines(lines);
     return 0;
 }
 
@@ -33,7 +36,13 @@ int invoke_parse_args(int argc, char *argv[])
 {
     if (strncmp(argv[1], "-n", 2) != 0) return print_usage();
     if (strlen(argv[1]) > 2) return print_usage();
+
     line_count = atoi(argv[2]);
+
+    if (line_count < 0) {
+        line_count = 0;
+        return print_usage();
+    }
 }
 
 int read_int_from(char s[])
@@ -51,22 +60,23 @@ int print_usage()
     return 0;
 }
 
-static char *line; 
-
-int read_lines(char *lines[], int line_count)
+void read_lines(char *lines[])
 {
-    int cursor = 0;
     int i = 0;
+    range_start = -1;
 
-    while (1) {
-        int j = i % line_count;
-        if (lines[j] != 0) cursor = (j+1) % line_count;
-        if (read_line() == EOF) return EOF;
-        lines[j] = line;
-        i++;
-    };
+    while (read_line()) {
+        if (i == range_start) push_range_start();
+        lines[i] = line;
+        range_end = i;
+        if (range_start == -1) range_start = i;
+        i = (i + 1) % line_count;
+    }
+}
 
-    return cursor;
+void push_range_start()
+{
+    range_start = (range_start + 1) % line_count;
 }
 
 int read_line()
@@ -76,13 +86,27 @@ int read_line()
     int i = 0;
     while ((c = getchar()) && c != '\n' && c != EOF) s[i++] = c;
     s[i] = '\0';
+    if (c == EOF && s[i] == '\0') return 0;
     line = s;
-    return c == EOF ? c : i;
+    return 1;
 }
 
-void print_lines(char **lines, int cursor)
+
+void print_lines(char *lines[])
 {
-    printf("cursor: %d\n", cursor);
-    while (lines[cursor])
-        printf("%s\n", lines[cursor++]);
+    int _line_count = line_count;
+
+    for (
+        int i = range_start;
+        _line_count-- && *lines[i];
+        i = (i + 1) % line_count
+    ) {
+        print_line(lines[i]);
+        if (i == range_end) break;
+    }
+}
+
+void print_line(char *line)
+{
+    printf("%s\n", line);
 }
