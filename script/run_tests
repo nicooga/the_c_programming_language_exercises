@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 run_tests() {
   echo "=== Running tests ..."
-  find_tests | while read in; do run_test $in; done
+  find_tests $1 | while read in; do run_test $in; done
 }
 
 find_tests() {
   find $PROJECT_ROOT \
     | grep -e  "\.test\.sh\$" \
+    | grep -e "$1" \
     | sort
 }
 
@@ -18,4 +19,4 @@ run_test() {
   echo
 }
 
-run_tests
+run_tests $@
