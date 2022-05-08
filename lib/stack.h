@@ -1,6 +1,3 @@
-// TODO: remove this import
-#include <stdio.h>
-
 #include <stdlib.h>
 #include <stdbool.h>
 
@@ -10,13 +7,14 @@
 #define MIN(a, b) (a) < (b) ? a : b
 
 void *stack_create(size_t initial_size);
-void *_create(size_t initial_size, size_t current_size);
+void stack_free(void *stack);
 
 void stack_push_double(void *stack, double value);
 double stack_pop_double(void *stack);
 
 size_t stack_size(void *stack);
 
+static void *_create(size_t initial_size, size_t current_size);
 static void _set_size(void *stack, size_t size);
 static size_t _max_size(void *stack);
 static void _set_max_size(void *stack, size_t size);
@@ -26,6 +24,11 @@ static void _resize(void *stack, size_t new_size);
 void *stack_create(size_t initial_size)
 {
     return _create(initial_size, 0);
+}
+
+void stack_free(void *stack)
+{
+    free(stack);
 }
 
 void stack_push_double(void *stack, double value)
@@ -48,12 +51,15 @@ double stack_pop_double(void *stack)
     return value;
 }
 
-size_t stack_size(void *stack) { return ((size_t *) stack)[SIZE]; }
+size_t stack_size(void *stack)
+{
+    return ((size_t *) stack)[SIZE];
+}
 
 void *_create(size_t initial_size, size_t current_size)
 {
     size_t real_size = initial_size + 2;
-    void *stack = malloc(real_size);
+    void *stack = malloc(sizeof(void *) * real_size);
 
     _set_size(stack, current_size);
     _set_max_size(stack, initial_size);
