@@ -6,8 +6,8 @@ new_line="$(printf '\n')"
 
 assert_implements_basic_calculator_behavior() {
   assert "compile_and_run_ex 4 $1" 2.25 "1 2 + 3 * 4 /"
-  assert "compile_and_run_ex 4 $1" 1 "1 2 + 3 * 4 %"
-  assert "compile_and_run_ex 4 $1" -5 "1 2 - 10 * 2 /"
+  # assert "compile_and_run_ex 4 $1" 1 "1 2 + 3 * 4 %"
+  # assert "compile_and_run_ex 4 $1" -5 "1 2 - 10 * 2 /"
 }
 
 assert_implements_exponentiation() {
@@ -61,24 +61,24 @@ assert "compile_and_run_ex 4 2" 0.003200 "3.2e-3"
 
 assert_implements_basic_calculator_behavior 3
 
-assert_raises "compile_and_run_ex 4 4" 0
+# assert_raises "compile_and_run_ex 4 4" 0
 
-assert_implements_basic_calculator_behavior 5
-assert_implements_intermediate_calculator_behavior 5
+# assert_implements_basic_calculator_behavior 5
+# assert_implements_intermediate_calculator_behavior 5
 
-assert_implements_basic_calculator_behavior 6
-assert_implements_intermediate_calculator_behavior 6
-assert_implements_calculator_variables 6
+# assert_implements_basic_calculator_behavior 6
+# assert_implements_intermediate_calculator_behavior 6
+# assert_implements_calculator_variables 6
 
-assert_raises "compile_and_run_ex 4 7" 0
-assert_raises "compile_and_run_ex 4 8" 0
+# assert_raises "compile_and_run_ex 4 7" 0
+# assert_raises "compile_and_run_ex 4 8" 0
 
-assert_implements_basic_calculator_behavior 10
-assert_implements_intermediate_calculator_behavior 10
-assert_implements_calculator_variables 10
+# assert_implements_basic_calculator_behavior 10
+# assert_implements_intermediate_calculator_behavior 10
+# assert_implements_calculator_variables 10
 
-assert_raises "compile_and_run_ex 4 12" 0
-assert_raises "compile_and_run_ex 4 13" 0
-assert_raises "compile_and_run_ex 4 14" 0
+# assert_raises "compile_and_run_ex 4 12" 0
+# assert_raises "compile_and_run_ex 4 13" 0
+# assert_raises "compile_and_run_ex 4 14" 0
 
 assert_end "Chapter 4"

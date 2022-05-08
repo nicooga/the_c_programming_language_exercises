@@ -1,20 +1,30 @@
+#include <assert.h>
 #include "lib/stack.h"
+
+int run_test(size_t initial_stack_size);
 
 int main(void)
 {
-    if (stack_size() != 0) return 1;
-    stack_push(1);
-    if (stack_size() != 1) return 1;
-    stack_push(2);
-    if (stack_size() != 2) return 1;
-    stack_push(3);
-    if (stack_size() != 3) return 1;
-    if (stack_pop() != 3) return 1;
-    if (stack_size() != 2) return 1;
-    if (stack_pop() != 2) return 1;
-    if (stack_size() != 1) return 1;
-    if (stack_pop() != 1) return 1;
-    if (stack_size() != 0) return 1;
-
+    if (!run_test(100)) return 1;
     return 0;
+}
+
+int run_test(size_t initial_stack_size) {
+    void *s = stack_create(initial_stack_size);
+
+    assert(stack_size(s) == 0);
+    stack_push_double(s, 1.1);
+    assert(stack_size(s) == 1);
+    stack_push_double(s, 2.2);
+    assert(stack_size(s) == 2);
+    stack_push_double(s, 3.3);
+    assert(stack_size(s) == 3);
+    assert(stack_pop_double(s) == 3.3);
+    assert(stack_size(s) == 2);
+    assert(stack_pop_double(s) == 2.2);
+    assert(stack_size(s) == 1);
+    assert(stack_pop_double(s) == 1.1);
+    assert(stack_size(s) == 0);
+
+    return 1;
 }
