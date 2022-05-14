@@ -7,6 +7,9 @@
 #define MAXOP 100 /* max size of operand or operator */
 #define NUMBER '0' /* signal that a number was found */
 
+#define PUSH(value) stack_push_double(stack, value)
+#define POP() stack_pop_double(stack)
+
 int get_operand(char s[]);
 
 // Exercise 4-3. Given the basic framework, it's straightforward to extend the calculator. Add
@@ -17,33 +20,35 @@ int main(void)
     double op2;
     char s[MAXOP];
 
+    double *stack = stack_create(300);
+
     while ((type = get_operand(s)) != EOF)
         switch (type) {
             case NUMBER:
-                stack_push(atof(s));
+                PUSH(atof(s));
                 break;
             case '+':
-                stack_push(stack_pop() + stack_pop());
+                PUSH(POP() + POP());
                 break;
             case '*':
-                stack_push(stack_pop() * stack_pop());
+                PUSH(POP() * POP());
                 break;
             case '-':
-                op2 = stack_pop();
-                stack_push(stack_pop() - op2);
+                op2 = POP();
+                PUSH(POP() - op2);
                 break;
             case '/':
-                op2 = stack_pop();
-                if (op2 != 0.0) stack_push(stack_pop() / op2);
+                op2 = POP();
+                if (op2 != 0.0) PUSH(POP() / op2);
                 else printf("error: zero divisor\n");
                 break;
             case '%':
-                op2 = stack_pop();
-                if (op2 != 0.0) stack_push((int) stack_pop() % (int) op2);
+                op2 = POP();
+                if (op2 != 0.0) PUSH((int) POP() % (int) op2);
                 else printf("error: zero divisor\n");
                 break;
             case '\n':
-                printf("%.8g\n", stack_pop());
+                printf("%.8g\n", POP());
                 break;
             default:
                 printf("error: unknown command %s\n", s);

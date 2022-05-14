@@ -7,6 +7,8 @@
 
 #define MAXOP 100
 #define OPERAND '0'
+#define PUSH(value) stack_push_double(stack, value)
+#define POP() stack_pop_double(stack)
 
 int get_operand_or_operator(char s[]);
 void consume_blanks(void);
@@ -18,46 +20,46 @@ int main(void)
     int type;
     double op2;
     char s[MAXOP];
-
     double temp;
+    void *stack = stack_create(8);
 
     while ((type = get_operand_or_operator(s)) != EOF)
         switch (type) {
             case OPERAND:
-                stack_push(atof(s));
+                PUSH(atof(s));
                 break;
             case '+':
-                stack_push(stack_pop() + stack_pop());
+                PUSH(POP() + POP());
                 break;
             case '*':
-                stack_push(stack_pop() * stack_pop());
+                PUSH(POP() * POP());
                 break;
             case '-':
-                op2 = stack_pop();
-                stack_push(stack_pop() - op2);
+                op2 = POP();
+                PUSH(POP() - op2);
                 break;
             case '/':
-                op2 = stack_pop();
-                if (op2 != 0.0) stack_push(stack_pop() / op2);
+                op2 = POP();
+                if (op2 != 0.0) PUSH(POP() / op2);
                 else printf("error: zero divisor\n");
                 break;
             case '%':
-                op2 = stack_pop();
-                if (op2 != 0.0) stack_push((int) stack_pop() % (int) op2);
+                op2 = POP();
+                if (op2 != 0.0) PUSH((int) POP() % (int) op2);
                 else printf("error: zero divisor\n");
                 break;
             case '^':
-                op2 = stack_pop();
-                stack_push(pow(stack_pop(), op2));
+                op2 = POP();
+                PUSH(pow(POP(), op2));
                 break;
             case 'e':
-                stack_push(exp(stack_pop()));
+                PUSH(exp(POP()));
                 break;
             case 's':
-                stack_push(sin(stack_pop()));
+                PUSH(sin(POP()));
                 break;
             case '\n':
-                printf("%.8g\n", stack_pop());
+                printf("%.8g\n", POP());
                 break;
             default:
                 printf("error: unknown command %s\n", s);
