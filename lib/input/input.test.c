@@ -66,6 +66,9 @@ int test_read_word(void)
     read_word(s, 5);
     if (!string_equals(s, "uiop")) return 0;
 
+    if (read_word(s, 5) != -1)
+        return 0;
+
     return 1;
 }
 

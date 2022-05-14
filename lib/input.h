@@ -33,12 +33,13 @@ int read_word(char s[], int limit)
 
     skip_blanks();
 
-    while (i < limit-1 && (c = read_char())) {
-        if (c == EOF || is_blank(c)) break;
+    while (--limit && (c = read_char()) != EOF && !is_blank(c))
         s[i++] = c;
-    }
 
     s[i] = '\0';
+
+    if (c == EOF)
+        return -1;
 
     return i;
 }
