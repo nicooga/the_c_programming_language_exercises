@@ -66,6 +66,11 @@ test_day_functions_behavior() {
 test_day_functions_behavior 8
 test_day_functions_behavior 9
 
+assert "compile_and_run_ex 5 10" 14.00 "2 3 4 + *"
+assert "compile_and_run_ex 5 10" 21.00 "2 3 4 + * 7 +"
+assert "compile_and_run_ex 5 10" 1.00 "2 1 -"
+assert "compile_and_run_ex 5 10" -5.00 "2 1 3 4 + - * 7 +"
+
 assert "compile_and_run_ex 5 13 -n 3" "asdf\nqwer\nuiop\n" "$(cat << EOF
 asdf
 qwer
