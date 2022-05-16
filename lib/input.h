@@ -15,14 +15,22 @@ static int to_digit(char c);
 static char buffer[BUFFER_SIZE];
 static int buffer_size = 0;
 
-// TODO: create new string and return pointer to it
 int read_line(char s[], int limit)
 {
     int i = 0;
     char c;
-    while (i < limit-1 && (c = read_char()) != EOF && c != '\n') s[i++] = c;
-    if (c == '\n') s[i++] = '\n';
+
+    while (--limit && (c = read_char()) != EOF && c != '\n')
+        s[i++] = c;
+
+    if (c == '\n')
+        s[i++] = '\n';
+
     s[i] = '\0';
+
+    if (c == EOF)
+        return -1;
+
     return i;
 }
 
@@ -47,7 +55,8 @@ int read_word(char s[], int limit)
 void skip_blanks(void)
 {
     char c;
-    while ((c = read_char()) && is_blank(c));
+    while ((c = read_char()) && is_blank(c))
+        ;
     unread_char(c);
 }
 
@@ -60,14 +69,17 @@ int read_int(void)
 
     char c = read_char();
 
-    if (c == '-') {
+    if (c == '-')
+    {
         sign = -1;
         c = read_char();
     };
 
-    if (c == '+') c = read_char();
+    if (c == '+')
+        c = read_char();
 
-    while (isdigit(c)) {
+    while (isdigit(c))
+    {
         int d = to_digit(c);
         n = n * 10 + d;
         c = read_char();

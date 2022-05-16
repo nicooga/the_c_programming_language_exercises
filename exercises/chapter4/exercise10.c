@@ -28,8 +28,10 @@ int main(void)
     char payload[MAX_PAYLOAD_LENGTH];
     stack = stack_create(8);
 
-    while (read_line(line, MAX_LINE_LENGTH)) {
-        while (line[line_index] != '\0') {
+    while (read_line(line, MAX_LINE_LENGTH) != -1)
+    {
+        while (line[line_index] != '\0')
+        {
             char action = read_action(line, payload);
             reducer(action, atof(payload));
         }
@@ -45,16 +47,21 @@ char read_action(char line[], char payload[])
     int i = 0;
     char c;
 
-    while (line[line_index] == ' ') line_index++;
+    while (line[line_index] == ' ')
+        line_index++;
 
     c = line[line_index++];
 
-    if (!isdigit(c)) return c;
+    if (!isdigit(c))
+        return c;
 
     payload[i++] = c;
 
-    while(isdigit(payload[i++] = c = line[line_index++]));
-    if (c == '.') while (isdigit(payload[i++] = c = line[line_index++]));
+    while (isdigit(payload[i++] = c = line[line_index++]))
+        ;
+    if (c == '.')
+        while (isdigit(payload[i++] = c = line[line_index++]))
+            ;
 
     payload[i] = '\0';
 
