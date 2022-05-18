@@ -2,6 +2,7 @@
 #include <ctype.h>
 
 #define BUFFER_SIZE 100
+#define BUFFER_EXHAUSTED -2
 
 int read_line(char s[], int limit);
 int read_word(char s[], int limit);
@@ -23,13 +24,16 @@ int read_line(char s[], int limit)
     while (--limit && (c = read_char()) != EOF && c != '\n')
         s[i++] = c;
 
+    if (limit == 0)
+        return BUFFER_EXHAUSTED;
+
     if (c == '\n')
         s[i++] = '\n';
 
     s[i] = '\0';
 
     if (c == EOF)
-        return -1;
+        return EOF;
 
     return i;
 }
@@ -47,7 +51,7 @@ int read_word(char s[], int limit)
     s[i] = '\0';
 
     if (c == EOF)
-        return -1;
+        return EOF;
 
     return i;
 }
@@ -71,7 +75,7 @@ int read_int(void)
 
     if (c == '-')
     {
-        sign = -1;
+        sign = EOF;
         c = read_char();
     };
 
@@ -103,6 +107,7 @@ char read_char(void)
 void unread_char(char c)
 {
     if (buffer_size >= BUFFER_SIZE)
+        // TODO: resize buffer?
         printf("unread_char: too many characters\n");
     else
         buffer[buffer_size++] = c;

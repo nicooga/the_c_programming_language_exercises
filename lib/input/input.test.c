@@ -12,10 +12,14 @@ static int test_read_line(void);
 static int test_read_word(void);
 static int test_read_int(void);
 static void unread_word(char *s);
+static void clean_buffer(void);
 
 // This test needs to be called with string "asdf" as input.
 int main(void)
 {
+    // Careful with commenting this test.
+    // It consumes the input provided to the program.
+    // Some tests may fail without this.
     if (!test_read_char())
         return 1;
 
@@ -45,6 +49,8 @@ int test_read_char(void)
     if (read_char() != 'f')
         return 0;
     if (read_char() != '\n')
+        return 0;
+    if (read_char() != EOF)
         return 0;
     return 1;
 }
@@ -76,8 +82,15 @@ int test_read_line(void)
     if (!string_equals(s, "  qwer  \n"))
         return 0;
 
-    if (read_line(s, max_length) != -1)
+    if (read_line(s, max_length) != EOF)
         return 0;
+
+    unread_word("asdfqwerzxcvuiop\n");
+
+    if (read_line(s, max_length) != -2)
+        return 0;
+
+    clean_buffer();
 
     return 1;
 }
@@ -106,15 +119,6 @@ int test_read_word(void)
     return 1;
 }
 
-void unread_word(char *s)
-{
-    char *original_s = s;
-    while (*(s + 1))
-        s++;
-    while (s >= original_s)
-        unread_char(*s--);
-}
-
 int test_read_int(void)
 {
     unread_word("  15 23   +12 \n   22   0   -12  ");
@@ -131,4 +135,21 @@ int test_read_int(void)
     if (read_int() != -12)
         return 0;
     return 1;
+}
+
+void unread_word(char *s)
+{
+    char *original_s = s;
+
+    while (*(s + 1))
+        s++;
+
+    while (s >= original_s)
+        unread_char(*s--);
+}
+
+static void clean_buffer()
+{
+    while (read_char() != EOF)
+        ;
 }
