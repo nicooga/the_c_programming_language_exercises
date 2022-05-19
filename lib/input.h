@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <ctype.h>
+#include <stdlib.h>
 
-#define BUFFER_SIZE 100
+#define INITIAL_BUFFER_SIZE 80
 #define BUFFER_EXHAUSTED -2
 
 int read_line(char s[], int limit);
@@ -13,29 +14,26 @@ static void skip_blanks(void);
 static int is_blank(char c);
 static int to_digit(char c);
 
-static char buffer[BUFFER_SIZE];
-static int buffer_size = 0;
+static char *buffer;
+static size_t buffer_size = 0;
+static size_t buffer_position = 0;
 
 int read_line(char s[], int limit)
 {
     int i = 0;
     char c;
 
-    while (--limit && (c = read_char()) != EOF && c != '\n')
+    while (--limit && (c = read_char()) != EOF) {
         s[i++] = c;
+        if (c == '\n')
+            break;
+    }
 
-    if (limit == 0)
-        return BUFFER_EXHAUSTED;
-
-    if (c == '\n')
-        s[i++] = '\n';
+    if (limit == 0) return BUFFER_EXHAUSTED;
 
     s[i] = '\0';
 
-    if (c == EOF)
-        return EOF;
-
-    return i;
+    return c == EOF ? EOF : i;
 }
 
 int read_word(char s[], int limit)
@@ -101,16 +99,21 @@ int to_digit(char c)
 
 char read_char(void)
 {
-    return (buffer_size > 0) ? buffer[--buffer_size] : getchar();
+    if (buffer_position > 0)
+        return buffer[--buffer_position];
+
+    return getchar();
 }
 
 void unread_char(char c)
 {
-    if (buffer_size >= BUFFER_SIZE)
-        // TODO: resize buffer?
-        printf("unread_char: too many characters\n");
-    else
-        buffer[buffer_size++] = c;
+    if (buffer_size == 0lu)
+        buffer = (char *)malloc(sizeof(char) * (buffer_size = INITIAL_BUFFER_SIZE));
+
+    if (buffer_position > buffer_size - 1)
+        buffer = realloc(buffer, sizeof(char) * (buffer_size *= 2));
+
+    buffer[buffer_position++] = c;
 }
 
 int is_blank(char c)

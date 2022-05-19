@@ -42,24 +42,40 @@ int test_read_char(void)
 {
     if (read_char() != 'a')
         return 0;
+
     if (read_char() != 's')
         return 0;
+
     if (read_char() != 'd')
         return 0;
+
     if (read_char() != 'f')
         return 0;
+
     if (read_char() != '\n')
         return 0;
+
     if (read_char() != EOF)
         return 0;
+
     return 1;
 }
 
 int test_unread_char(void)
 {
     unread_char('f');
+
     if (read_char() != 'f')
         return 0;
+
+    for (int i = 0; i < 10000000; i++)
+        unread_char('a');
+
+    for (int i = 0; i < 10000000; i++)
+        if (read_char() != 'a') return 0;
+
+    clean_buffer();
+
     return 1;
 }
 
@@ -83,6 +99,11 @@ int test_read_line(void)
         return 0;
 
     if (read_line(s, max_length) != EOF)
+        return 0;
+
+    unread_word("  asdf  ");
+
+    if (read_line(s, max_length) != -1)
         return 0;
 
     unread_word("asdfqwerzxcvuiop\n");
