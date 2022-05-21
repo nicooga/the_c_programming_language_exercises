@@ -20,6 +20,8 @@ static size_t buffer_position = 0;
 
 int read_line(char s[], int limit)
 {
+    if (limit == 0) return BUFFER_EXHAUSTED;
+
     int i = 0;
     char c;
 

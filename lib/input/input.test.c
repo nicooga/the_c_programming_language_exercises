@@ -113,6 +113,9 @@ int test_read_line(void)
 
     clean_buffer();
 
+    if (read_line(s, 0) != -2)
+        return 0;
+
     return 1;
 }
 
