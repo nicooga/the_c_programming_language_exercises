@@ -9,6 +9,7 @@
 static int test_read_char(void);
 static int test_unread_char(void);
 static int test_read_line(void);
+static int test_read_lines(void);
 static int test_read_word(void);
 static int test_read_int(void);
 static void unread_word(char *s);
@@ -23,17 +24,20 @@ int main(void)
     if (!test_read_char())
         return 1;
 
-    if (!test_unread_char())
+    // if (!test_unread_char())
+    //     return 1;
+
+    // if (!test_read_line())
+    //     return 1;
+
+    if (!test_read_lines())
         return 1;
 
-    if (!test_read_line())
-        return 1;
+    // if (!test_read_word())
+    //     return 1;
 
-    if (!test_read_word())
-        return 1;
-
-    if (!test_read_int())
-        return 1;
+    // if (!test_read_int())
+    //     return 1;
 
     return 0;
 }
@@ -115,6 +119,32 @@ int test_read_line(void)
 
     if (read_line(s, 0) != -2)
         return 0;
+
+    return 1;
+}
+
+int test_read_lines(void)
+{
+    char **lines;
+    unsigned int line_count = 0;
+
+    unread_word("  asdf  \n  qwer \nuiop  \n");
+
+    lines = read_lines(&line_count);
+
+    printf("lines[0]: %s\n", lines[0]);
+
+    // if (line_count != 3)
+    //     return 0;
+
+    // if (!string_equals(lines[0], "  asdf  "))
+    //     return 0;
+
+    // if (!string_equals(lines[0], "  qwer  "))
+    //     return 0;
+
+    // if (!string_equals(lines[0], "  uiop  "))
+    //     return 0;
 
     return 1;
 }
