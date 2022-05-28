@@ -132,19 +132,17 @@ int test_read_lines(void)
 
     lines = read_lines(&line_count);
 
-    printf("lines[0]: %s\n", lines[0]);
+    if (line_count != 3)
+        return 0;
 
-    // if (line_count != 3)
-    //     return 0;
+    if (!string_equals(lines[0], "  asdf  \n"))
+        return 0;
 
-    // if (!string_equals(lines[0], "  asdf  "))
-    //     return 0;
+    if (!string_equals(lines[1], "  qwer \n"))
+        return 0;
 
-    // if (!string_equals(lines[0], "  qwer  "))
-    //     return 0;
-
-    // if (!string_equals(lines[0], "  uiop  "))
-    //     return 0;
+    if (!string_equals(lines[2], "uiop  \n"))
+        return 0;
 
     return 1;
 }

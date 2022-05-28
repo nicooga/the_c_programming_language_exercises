@@ -4,11 +4,11 @@
 
 #define BUFFER_EXHAUSTED -2
 #define READ_CHAR_INITIAL_BUFFER_SIZE 80
-#define READ_LINES_INITIAL_BUFFER_SIZE 80
-#define READ_LINES_INITIAL_LINES_SIZE 2
+#define READ_LINES_INITIAL_BUFFER_SIZE 30
+#define READ_LINES_INITIAL_LINES_SIZE 10
 
-int read_line(char s[], int limit);
-char **read_lines(int *line_count);
+size_t read_line(char s[], int limit);
+char **read_lines(unsigned int *line_count);
 int read_word(char s[], int limit);
 char read_char(void);
 void unread_char(char c);
@@ -21,7 +21,7 @@ static char *buffer;
 static size_t buffer_size = 0;
 static size_t buffer_position = 0;
 
-int read_line(char s[], int limit)
+size_t read_line(char s[], int limit)
 {
     if (limit == 0) return BUFFER_EXHAUSTED;
 
@@ -41,41 +41,49 @@ int read_line(char s[], int limit)
     return c == EOF ? EOF : i;
 }
 
-char **read_lines(int *line_count) {
+char **read_lines(unsigned int *line_count) {
     size_t buffer_size = READ_LINES_INITIAL_BUFFER_SIZE;
     size_t lines_size = READ_LINES_INITIAL_LINES_SIZE;
 
     char *buffer = malloc(sizeof(char) * buffer_size);
+    char *initial_buffer = buffer;
     char **lines = malloc(sizeof(char *) * lines_size);
 
-    size_t remaining_space_in_buffer = buffer_size;
+    unsigned int remaining_space_in_buffer = buffer_size;
+
+    char **_lines = lines;
+    size_t last_line_size;
 
     *line_count = 0;
 
     while (1)
     {
-        char **_lines = lines;
-        size_t last_line_size = EOF;
 
         for (int i = 0; i < lines_size; i++)
         {
-            printf("remaining_space_in_buffer: %lu\n", buffer_size);
+            // for (int j = 0; j < buffer_size; j++)
+            //     printf("buffer[%d]: %c (%d)\n", j, buffer[j], buffer[j]);
+
+            printf("remaining_space_in_buffer: %u\n", remaining_space_in_buffer);
+
             last_line_size = read_line(buffer, remaining_space_in_buffer);
-            printf("buffer: %s\n", buffer);
+
             printf("last_line_size: %lu\n", last_line_size);
 
-            // if (last_line_size == BUFFER_EXHAUSTED) {
-            //     buffer = realloc(buffer, sizeof(char) * (buffer_size *= 2));
-            //     continue;
-            // }
-
-            *_lines = buffer;
+            if (last_line_size == BUFFER_EXHAUSTED) {
+                printf("buffer exhausted");
+                buffer = realloc(buffer, sizeof(char) * (buffer_size *= 2));
+                last_line_size = read_line(buffer, remaining_space_in_buffer);
+                continue;
+            }
 
             if (last_line_size == EOF)
                 break;
 
-            // remaining_space_in_buffer -= last_line_size;
+            *_lines = buffer;
 
+            (*line_count)++;
+            remaining_space_in_buffer -= last_line_size + 1;
             _lines++;
             buffer += last_line_size + 1;
         }
@@ -84,6 +92,7 @@ char **read_lines(int *line_count) {
             break;
 
         // lines = realloc(lines, sizeof(char *) * (lines_size *= 2));
+        printf("================\n");
     }
 
     return lines;
