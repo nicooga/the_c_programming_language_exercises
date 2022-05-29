@@ -3,63 +3,38 @@
 #include <stdio.h>
 #include "lib/stack.h"
 
-static int run_lineal_test(void);
-static int run_exponential_test(void);
-static int run_single_test(void);
-static int run_test(size_t initial_stack_size);
-static int do_run_test(size_t initial_stack_size);
-
-#define VERBOSE 0
+static void run_performance_test(void);
+static void run_lineal_test(void);
+static void run_exponential_test(void);
+static void run_single_test(void);
+static void run_test(size_t initial_stack_size);
 
 int main(void)
 {
-    char line[100];
-
-    VERBOSE && printf("--- Running resizing stack tests ...\n");
-
-    if (!run_single_test())
-        return 1;
-
-    if (!run_lineal_test())
-        return 1;
-
-    if (!run_exponential_test())
-        return 1;
-
+    run_performance_test();
     return 0;
 }
 
-int run_lineal_test()
+void run_performance_test()
+{
+    run_single_test();
+    run_lineal_test();
+    run_exponential_test();
+}
+
+void run_lineal_test()
 {
     for (int i = 1; i < 1000; i++)
-        if (!run_test(i))
-            return 1;
+        run_test(i);
 }
-
-int run_exponential_test()
+void run_exponential_test()
 {
     for (int i = 1; i < pow(2, 19); i *= 2)
-        if (!run_test(i))
-            return 1;
-
-    return 1;
+        run_test(i);
 }
+void run_single_test() { run_test(2); }
 
-int run_single_test()
-{
-    run_test(2);
-}
-
-int run_test(size_t N)
-{
-    VERBOSE && printf("--- ... for initial_size=%lu ...", N);
-    int result = do_run_test(N);
-    if (VERBOSE && result)
-        printf(" success\n");
-    return result;
-}
-
-int do_run_test(size_t N)
+void run_test(size_t N)
 {
     void *s;
 
@@ -83,6 +58,4 @@ int do_run_test(size_t N)
     }
 
     stack_free(s);
-
-    return 1;
 }

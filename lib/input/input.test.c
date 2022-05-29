@@ -1,3 +1,4 @@
+#include <assert.h>
 #include "lib/string.h"
 #include "lib/input.h"
 
@@ -128,21 +129,23 @@ int test_read_lines(void)
     char **lines;
     unsigned int line_count = 0;
 
-    unread_word("  asdf  \n  qwer \nuiop  \n");
+    for (int i = 0; i < 10; i++)
+        unread_word("  asdf  \n  qwer \nuiop  \n");
 
     lines = read_lines(&line_count);
 
-    if (line_count != 3)
-        return 0;
+    assert(line_count == 30);
 
-    if (!string_equals(lines[0], "  asdf  \n"))
-        return 0;
-
-    if (!string_equals(lines[1], "  qwer \n"))
-        return 0;
-
-    if (!string_equals(lines[2], "uiop  \n"))
-        return 0;
+    for (int i = 0; i < 10; i++) {
+        int offset = i * 3;
+        printf("i: %d\n", i);
+        if (i == 5) {
+            printf("lines[%d]: %s\n", offset, lines[offset]);
+        }
+        assert(string_equals(lines[offset + 0], "  asdf  \n"));
+        assert(string_equals(lines[offset + 1], "  qwer \n"));
+        assert(string_equals(lines[offset + 2], "uiop  \n"));
+    }
 
     return 1;
 }
