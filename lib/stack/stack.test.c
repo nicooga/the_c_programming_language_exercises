@@ -4,6 +4,7 @@
 #include "lib/stack.h"
 
 static void run_performance_test(void);
+
 static void run_lineal_test(void);
 static void run_exponential_test(void);
 static void run_single_test(void);

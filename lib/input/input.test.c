@@ -25,20 +25,20 @@ int main(void)
     if (!test_read_char())
         return 1;
 
-    // if (!test_unread_char())
-    //     return 1;
-
-    // if (!test_read_line())
-    //     return 1;
-
-    if (!test_read_lines())
+    if (!test_unread_char())
         return 1;
 
-    // if (!test_read_word())
+    if (!test_read_line())
+        return 1;
+
+    // if (!test_read_lines())
     //     return 1;
 
-    // if (!test_read_int())
-    //     return 1;
+    if (!test_read_word())
+        return 1;
+
+    if (!test_read_int())
+        return 1;
 
     return 0;
 }
@@ -77,7 +77,8 @@ int test_unread_char(void)
         unread_char('a');
 
     for (int i = 0; i < 10000000; i++)
-        if (read_char() != 'a') return 0;
+        if (read_char() != 'a')
+            return 0;
 
     clean_buffer();
 
@@ -136,10 +137,12 @@ int test_read_lines(void)
 
     assert(line_count == 30);
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++)
+    {
         int offset = i * 3;
         printf("i: %d\n", i);
-        if (i == 5) {
+        if (i == 5)
+        {
             printf("lines[%d]: %s\n", offset, lines[offset]);
         }
         assert(string_equals(lines[offset + 0], "  asdf  \n"));
