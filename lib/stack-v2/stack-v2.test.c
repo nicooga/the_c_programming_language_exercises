@@ -2,6 +2,8 @@
 #include <math.h>
 #include "lib/stack-v2.h"
 
+#define MAX_EXPONENT 19
+
 static void run_performance_test(void);
 
 static void run_lineal_test(void);
@@ -9,8 +11,6 @@ static void run_exponential_test(void);
 static void run_single_test(void);
 static void run_test(size_t initial_stack_size);
 static void do_run_test(size_t N);
-
-static int TRIALS = 10;
 
 int main(void)
 {
@@ -21,35 +21,24 @@ int main(void)
 static void run_performance_test()
 {
     run_single_test();
-    // run_lineal_test();
-    // run_exponential_test();
+    run_exponential_test();
 }
 
-static void run_lineal_test()
-{
-    for (int i = 1; i < 1000; i++)
-        run_test(i);
-}
+static void run_single_test() { run_test(100); }
 
 static void run_exponential_test()
 {
-    for (int i = 1; i < pow(2, 19); i *= 2)
+    for (int i = 1; i < pow(2, MAX_EXPONENT); i *= 2)
         run_test(i);
-}
 
-static void run_single_test() { run_test(2); }
+    run_test(pow(2, 16));
+}
 
 static void run_test(size_t N)
 {
-    while (TRIALS--)
-        do_run_test(N);
-}
-
-static void do_run_test(size_t N)
-{
     Stack s;
 
-    assert(s = stack_create(sizeof(double), N));
+    assert(s = stack_create(sizeof(double), 1));
     assert(stack_size(s) == 0);
 
     for (int i = 1; i <= N; i++)
@@ -61,8 +50,8 @@ static void do_run_test(size_t N)
 
     for (int i = N; i >= 1; i--)
     {
-        double *v = stack_pop(s);
-        assert(*v == i * 1.111);
+        double *value = stack_pop(s);
+        assert(*value == i * 1.111);
         assert(stack_size(s) == i - 1);
     }
 
